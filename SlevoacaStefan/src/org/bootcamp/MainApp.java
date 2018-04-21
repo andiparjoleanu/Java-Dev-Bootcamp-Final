@@ -1,46 +1,50 @@
 package org.bootcamp;
 
-import org.bootcamp.calculator.InsurancePolicyCalculator;
-import org.bootcamp.dao.VehicleInfoDao;
-import org.bootcamp.dao.VehicleInfoPlainFileDao;
-import org.bootcamp.formula.Formula;
-import org.bootcamp.model.VehicleInfo;
 import org.bootcamp.service.InsuranceCalculationResult;
 import org.bootcamp.service.InsuranceCalculatorService;
-import org.bootcamp.vehicle.Bus;
-import org.bootcamp.vehicle.Car;
-import org.bootcamp.vehicle.Tipper;
-import org.bootcamp.vehicle.Vehicle;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
-public class MainApp {
+public final class MainApp {
 
-
-    private static final String OUTPUT_FORMAT = "Vehicle with id %s has total cost %d";
-
+    private static final String OUTPUT_FORMAT = "%s with id %s has total cost %.2f";
 
     public static void main(String[] args) {
 
+        final long startTime = System.currentTimeMillis();
 
         if (args.length >= 1) {
-            final InsuranceCalculatorService service = new InsuranceCalculatorService(args[0]);
-            final List<InsuranceCalculationResult> resultList = service.calculateAll();
 
-            for (InsuranceCalculationResult result : resultList) {
-                final String output = String.format(OUTPUT_FORMAT, result.getId(), result.getCost());
-                System.out.println(output);
-            }
+            final String path = args[0];
+            final InsuranceCalculatorService service = new InsuranceCalculatorService(path);
+            final List<InsuranceCalculationResult> resultList1 = service.calculateAll();
+            final List<InsuranceCalculationResult> resultList2 = service.getCostsHigherThan(1000);
+
+            resultList1.forEach(MainApp::printCalculationResult);
+
+            System.out.println();
+
+            resultList2.forEach(MainApp::printCalculationResult);
+
+            System.out.println();
+
+            printCalculationResult(service.calculateById("3c997def-3cff-11e8-c243-14de190f32bc"));
 
         } else {
             System.out.println("No arguments!");
         }
+
+        final long endTime = System.currentTimeMillis();
+
+        System.out.println((endTime - startTime) + " " + TimeUnit.MILLISECONDS.toString());
     }
 
 
+    private static void printCalculationResult(InsuranceCalculationResult result) {
+
+        if (result != null) {
+            final String output = String.format(OUTPUT_FORMAT, result.getVehicleTypeName(), result.getId(), result.getCost());
+            System.out.println(output);
+        }
+    }
 }

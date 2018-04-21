@@ -1,13 +1,15 @@
 package org.bootcamp.vehicle;
 
 public final class Tipper extends Vehicle {
+
     private int capacityInTons;
 
     public Tipper() {
     }
 
     public Tipper(int age, long numberOfMiles, boolean isDiesel) {
-        super(age, numberOfMiles, isDiesel);
+
+        this(age, numberOfMiles, isDiesel, 0);
     }
 
     public Tipper(int age, long numberOfMiles, boolean isDiesel, int capacityInTons) {

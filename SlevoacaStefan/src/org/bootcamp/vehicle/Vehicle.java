@@ -1,12 +1,12 @@
 package org.bootcamp.vehicle;
 
 public abstract class Vehicle {
+
     private int age;
     private long numberOfMiles;
     private boolean isDiesel;
 
-    protected Vehicle() {
-    }
+    protected Vehicle() {}
 
     protected Vehicle(int age, long numberOfMiles, boolean isDiesel) {
         this.age = age;

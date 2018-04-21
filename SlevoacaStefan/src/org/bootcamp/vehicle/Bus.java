@@ -3,11 +3,11 @@ package org.bootcamp.vehicle;
 public final class Bus extends Vehicle {
     private int numberOfSeats;
 
-    public Bus() {
-    }
+    public Bus() {}
 
     public Bus(int age, long numberOfMiles, boolean isDiesel) {
-        super(age, numberOfMiles, isDiesel);
+
+        this(age, numberOfMiles, isDiesel, 0);
     }
 
     public Bus(int age, long numberOfMiles, boolean isDiesel, int numberOfSeats) {
