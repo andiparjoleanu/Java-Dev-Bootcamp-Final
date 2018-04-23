@@ -7,14 +7,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public final class VehicleInfoPlainFileDao implements VehicleInfoDao {
 
     private static final String SEPARATOR = ";";
-
     private static final int VEHICLE_TYPE = 1;
     private static final int VEHICLE_AGE = 3;
     private static final int VEHICLE_MILES = 4;
@@ -22,39 +23,44 @@ public final class VehicleInfoPlainFileDao implements VehicleInfoDao {
     private static final int VEHICLE_ID = 0;
     private static final int VEHICLE_FORMULA = 2;
 
-    private final String filePath;
+    private final VehicleInfo.Builder vehicleInfoBuilder = VehicleInfo.builder();
+    private final Map<String, VehicleInfo> vehicleInfoMap = new HashMap<>();
 
     public VehicleInfoPlainFileDao(String filePath) {
-        this.filePath = filePath;
-    }
-
-    @Override
-    public List<VehicleInfo> getAllVehicles() {
-        final List<VehicleInfo> vehicles = new ArrayList<>();
-
-        final File inputFile = new File(this.filePath);
-
+        VehicleInfo vehicleInfo;
         try {
+            final File inputFile = new File(filePath);
             final InputStream inputStream = new FileInputStream(inputFile);
             final Scanner scanner = new Scanner(inputStream);
-
             while (scanner.hasNextLine()) {
                 final String line = scanner.nextLine();
                 final String[] tokens = line.split(SEPARATOR);
 
-                final VehicleInfo info = new VehicleInfo(tokens[VEHICLE_ID], tokens[VEHICLE_TYPE],
-                        tokens[VEHICLE_FORMULA], Integer.parseInt(tokens[VEHICLE_AGE]),
-                        Long.parseLong(tokens[VEHICLE_MILES]), Boolean.parseBoolean(tokens[VEHICLE_IS_DIESEL]));
+                vehicleInfo = vehicleInfoBuilder
+                        .withId(tokens[VEHICLE_ID])
+                        .withVehicleTypeName(tokens[VEHICLE_TYPE])
+                        .withVehicleTypeFormula(tokens[VEHICLE_FORMULA])
+                        .withAge(Integer.parseInt(tokens[VEHICLE_AGE]))
+                        .withNumberOfMiles(Long.parseLong(tokens[VEHICLE_MILES]))
+                        .withIsDiesel(Boolean.parseBoolean(tokens[VEHICLE_IS_DIESEL]))
+                        .build();
 
-                vehicles.add(info);
+                vehicleInfoMap.put(vehicleInfo.getId(), vehicleInfo);
             }
-
             scanner.close();
-
-        } catch (FileNotFoundException noFileFound) {
-            return Collections.emptyList();
+        } catch (FileNotFoundException e) {
+            final String errorMessage = "Can not create instance of class " + VehicleInfoPlainFileDao.class.getSimpleName();
+            throw new IllegalStateException(errorMessage);
         }
+    }
 
-        return vehicles;
+    @Override
+    public List<VehicleInfo> getAllVehicles() {
+        return new ArrayList<>(vehicleInfoMap.values());
+    }
+
+    @Override
+    public VehicleInfo getVehicleById(String id) {
+        return vehicleInfoMap.get(id);
     }
 }
