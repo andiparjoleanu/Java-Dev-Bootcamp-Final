@@ -3,18 +3,24 @@ package org.bootcamp.service;
 
 public final class InsuranceCalculationResult {
     private final String id;
-    private final int cost;
+    private final double cost;
+    private final String vehicleType;
 
-    public InsuranceCalculationResult(String id, int cost) {
+    public InsuranceCalculationResult(String id, double cost, String vehicleType) {
         this.id = id;
         this.cost = cost;
+        this.vehicleType = vehicleType;
     }
 
     public String getId() {
         return id;
     }
 
-    public int getCost() {
+    public double getCost() {
         return cost;
+    }
+
+    public String getVehicleType() {
+        return vehicleType;
     }
 }
