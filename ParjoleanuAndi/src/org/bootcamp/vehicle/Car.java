@@ -1,13 +1,13 @@
 package org.bootcamp.vehicle;
 
 public final class Car extends Vehicle {
-    private String transmission = "manual";
+    private String  transmission = "manual";
 
-
-    public Car() {
+    public Car()
+    {
     }
-
-    public Car(int age, long numberOfMiles, boolean isDiesel) {
+    public Car(int age, long numberOfMiles, boolean isDiesel)
+    {
         super(age, numberOfMiles, isDiesel);
     }
 
@@ -16,11 +16,11 @@ public final class Car extends Vehicle {
         this.transmission = transmission;
     }
 
-    public String getTransmission() {
+    public String getTransmision() {
         return transmission;
     }
 
-    public void setTransmission(String transmission) {
-        this.transmission = transmission;
+    public void setTransmision(String transmision) {
+        this.transmission = transmision;
     }
 }

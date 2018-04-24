@@ -5,7 +5,9 @@ public abstract class Vehicle {
     private long numberOfMiles;
     private boolean isDiesel;
 
-    protected Vehicle() {
+    protected Vehicle()
+    {
+
     }
 
     protected Vehicle(int age, long numberOfMiles, boolean isDiesel) {
@@ -37,4 +39,6 @@ public abstract class Vehicle {
     public void setDiesel(boolean diesel) {
         isDiesel = diesel;
     }
+
+
 }

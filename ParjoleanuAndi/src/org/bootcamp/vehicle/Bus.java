@@ -1,12 +1,14 @@
 package org.bootcamp.vehicle;
 
-public final class Bus extends Vehicle {
+public final class Bus extends Vehicle { //nu vom putea mosteni clasa respectiva cu final
     private int numberOfSeats;
 
-    public Bus() {
+    public Bus()
+    {
     }
 
-    public Bus(int age, long numberOfMiles, boolean isDiesel) {
+    public Bus(int age, long numberOfMiles, boolean isDiesel)
+    {
         super(age, numberOfMiles, isDiesel);
     }
 
@@ -15,11 +17,11 @@ public final class Bus extends Vehicle {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public int getNumberOfSeats() {
+    public int getnumberOfSeats() {
         return numberOfSeats;
     }
 
-    public void setNumberOfSeats(int numberOfSeats) {
+    public void setnumberOfSeats(int numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
 }

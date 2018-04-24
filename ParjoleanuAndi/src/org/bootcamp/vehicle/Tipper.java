@@ -1,12 +1,13 @@
 package org.bootcamp.vehicle;
 
-public final class Tipper extends Vehicle {
-    private int capacityInTons;
+public final class Tipper extends Vehicle { //nu vom putea mosteni clasa respectiva cu final
+    private float capacityInTons;
 
-    public Tipper() {
+    public Tipper()
+    {
     }
-
-    public Tipper(int age, long numberOfMiles, boolean isDiesel) {
+    public Tipper(int age, long numberOfMiles, boolean isDiesel)
+    {
         super(age, numberOfMiles, isDiesel);
     }
 
@@ -15,11 +16,11 @@ public final class Tipper extends Vehicle {
         this.capacityInTons = capacityInTons;
     }
 
-    public int getCapacityInTons() {
+    public float getcapacityInTons() {
         return capacityInTons;
     }
 
-    public void setCapacityInTons(int capacityInTons) {
+    public void setcapacityInTons(float capacityInTons) {
         this.capacityInTons = capacityInTons;
     }
 }
